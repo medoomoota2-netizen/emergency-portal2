@@ -1,0 +1,3655 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>بوابة الاستجابة للطوارئ | مشروع الدرعية</title>
+  <meta id="metaDescription" name="description"
+        content="بوابة الاستجابة للطوارئ الميدانية لمشروع الدرعية، مع إرشادات الطوارئ، الاتصال السريع ومشاركة الموقع.">
+
+  <meta name="theme-color" content="#b4232c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Multilingual SEO -->
+  <link rel="alternate" hreflang="ar" href="./?lang=ar">
+  <link rel="alternate" hreflang="en" href="./?lang=en">
+  <link rel="alternate" hreflang="ur" href="./?lang=ur">
+  <link rel="alternate" hreflang="x-default" href="./">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --red: #b4232c;
+      --red-dark: #8f1720;
+      --red-light: #fff1f2;
+      --navy: #101828;
+      --navy-2: #1d2939;
+      --text: #182230;
+      --muted: #667085;
+      --bg: #f7f8fa;
+      --white: #fff;
+      --border: #e4e7ec;
+      --green: #07864b;
+      --blue: #175cd3;
+      --orange: #e97b19;
+      --shadow: 0 12px 35px rgba(16,24,40,.08);
+      --radius: 18px;
+      --header-height: 74px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Cairo", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    html[lang="en"] body {
+      font-family: "Inter", sans-serif;
+    }
+
+    html[lang="ur"] body {
+      font-family: "Noto Nastaliq Urdu", serif;
+      line-height: 2;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    /* =========================
+       LANGUAGE SPLASH
+    ========================= */
+
+    #languageSplash {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background:
+        radial-gradient(circle at top right, rgba(180,35,44,.16), transparent 35%),
+        linear-gradient(145deg, #101828, #172b3d);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: opacity .35s ease, visibility .35s ease;
+    }
+
+    #languageSplash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-card {
+      width: min(480px, 100%);
+      background: rgba(255,255,255,.97);
+      border-radius: 28px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,.3);
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 18px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--red), #e34a54);
+      color: #fff;
+      font-size: 40px;
+      box-shadow: 0 12px 25px rgba(180,35,44,.3);
+    }
+
+    .splash-card h1 {
+      font-size: clamp(24px, 5vw, 34px);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .splash-card p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .language-buttons {
+      display: grid;
+      gap: 12px;
+    }
+
+    .language-btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 58px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 17px;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .language-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .language-btn.ar {
+      background: #198754;
+      color: #fff;
+    }
+
+    .language-btn.en {
+      background: #175cd3;
+      color: #fff;
+    }
+
+    .language-btn.ur {
+      background: #e76f00;
+      color: #fff;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--header-height);
+      background: rgba(16,24,40,.94);
+      backdrop-filter: blur(14px);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .header-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 12px;
+      background: var(--red);
+      display: grid;
+      place-items: center;
+      font-size: 21px;
+    }
+
+    .brand-text {
+      font-weight: 800;
+      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .desktop-nav a {
+      padding: 9px 12px;
+      border-radius: 9px;
+      color: #d0d5dd;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .desktop-nav a:hover {
+      color: #fff;
+      background: rgba(255,255,255,.08);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .language-select {
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      border-radius: 9px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .language-select option {
+      color: #111;
+    }
+
+    .header-call {
+      background: var(--red);
+      color: #fff;
+      padding: 9px 13px;
+      border-radius: 9px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    /* =========================
+       MOBILE NAV
+    ========================= */
+
+    .mobile-menu {
+      position: fixed;
+      top: var(--header-height);
+      inset-inline: 0;
+      background: #101828;
+      padding: 15px;
+      display: none;
+      z-index: 999;
+      box-shadow: 0 15px 30px rgba(0,0,0,.25);
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 6px;
+    }
+
+    .mobile-menu a {
+      color: #fff;
+      padding: 13px;
+      border-radius: 9px;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(255,255,255,.08);
+    }
+
+    /* =========================
+       EMERGENCY BAR
+    ========================= */
+
+    .emergency-bar {
+      background: linear-gradient(90deg, #8f1720, var(--red));
+      color: #fff;
+      padding: 11px 16px;
+    }
+
+    .emergency-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .emergency-number {
+      background: rgba(0,0,0,.2);
+      border: 1px solid rgba(255,255,255,.35);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      padding: 70px 0 50px;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(180,35,44,.1), transparent 35%),
+        linear-gradient(180deg, #fff, #f7f8fa);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--red);
+      background: var(--red-light);
+      border: 1px solid #ffd6d9;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 6vw, 60px);
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 680px;
+      margin-bottom: 25px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      min-height: 48px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 11px;
+      cursor: pointer;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--red);
+      box-shadow: 0 8px 20px rgba(180,35,44,.2);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .hero-panel {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 26px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .quick-action {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #fff;
+      padding: 16px 10px;
+      border-radius: 13px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .quick-action:hover {
+      background: rgba(255,255,255,.14);
+    }
+
+    .quick-action .icon {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    /* =========================
+       SECTION
+    ========================= */
+
+    section {
+      padding: 65px 0;
+    }
+
+    .section-heading {
+      max-width: 700px;
+      margin-bottom: 28px;
+    }
+
+    .section-heading .kicker {
+      color: var(--red);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(27px, 4vw, 40px);
+      margin: 5px 0 8px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    /* =========================
+       FEATURES
+    ========================= */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 5px 18px rgba(16,24,40,.03);
+    }
+
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      background: var(--red-light);
+      border-radius: 12px;
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 5px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================
+       CASES
+    ========================= */
+
+    #cases {
+      background: #fff;
+    }
+
+    .case-toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1 1 300px;
+    }
+
+    .search-box input {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 44px 10px 14px;
+      outline: none;
+      background: #fff;
+    }
+
+    html[dir="ltr"] .search-box input {
+      padding: 10px 44px 10px 14px;
+    }
+
+    .search-box span {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    html[dir="ltr"] .search-box span {
+      right: auto;
+      left: 14px;
+    }
+
+    .case-filter {
+      min-height: 50px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      padding: 0 13px;
+      min-width: 160px;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .case-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      cursor: pointer;
+      min-height: 160px;
+      transition: .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-card::after {
+      content: "";
+      position: absolute;
+      inset-inline-end: -25px;
+      bottom: -30px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--red-light);
+    }
+
+    .case-card:hover {
+      transform: translateY(-3px);
+      border-color: #f0a1a6;
+      box-shadow: var(--shadow);
+    }
+
+    .case-icon {
+      font-size: 34px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .case-number {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .case-card h3 {
+      font-size: 16px;
+      margin-top: 4px;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 35px;
+      display: none;
+    }
+
+    /* =========================
+       TEAM
+    ========================= */
+
+    .team-table-wrap {
+      overflow-x: auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #eef0f3;
+      text-align: start;
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--navy);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .call-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      background: var(--green);
+      padding: 7px 11px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .about-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 26px;
+    }
+
+    .values {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .value {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .value-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--red-light);
+      flex: 0 0 40px;
+    }
+
+    /* =========================
+       CONTACT
+    ========================= */
+
+    #contact {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 25px;
+    }
+
+    .contact-info {
+      color: #d0d5dd;
+    }
+
+    .contact-info h2 {
+      color: #fff;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 12px;
+      margin: 18px 0;
+      align-items: flex-start;
+    }
+
+    .contact-item-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,.08);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 42px;
+    }
+
+    .contact-form {
+      background: #fff;
+      color: var(--text);
+      padding: 25px;
+      border-radius: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      outline: none;
+      background: #fff;
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .search-box input:focus {
+      border-color: #98a2b3;
+      box-shadow: 0 0 0 3px rgba(23,92,211,.08);
+    }
+
+    .success-message {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #ecfdf3;
+      color: #027a48;
+      font-weight: 700;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      background: #0b111c;
+      color: #98a2b3;
+      padding: 25px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      background: rgba(0,0,0,.68);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(650px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      position: relative;
+      animation: modalIn .2s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      inset-inline-end: 15px;
+      top: 15px;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: #f2f4f7;
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    .modal-title {
+      padding-inline-end: 45px;
+      color: var(--red);
+      margin-bottom: 18px;
+    }
+
+    .location-box {
+      background: #eff8ff;
+      color: #175cd3;
+      padding: 13px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .instruction-list {
+      padding-inline-start: 22px;
+      margin: 12px 0 20px;
+    }
+
+    .instruction-list li {
+      margin: 7px 0;
+    }
+
+    .kit-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .kit-item {
+      background: #f2f4f7;
+      border-radius: 9px;
+      padding: 9px 12px;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 20px;
+    }
+
+    /* =========================
+       FLOATING ACTIONS
+    ========================= */
+
+    .floating-actions {
+      position: fixed;
+      bottom: calc(18px + env(safe-area-inset-bottom));
+      inset-inline-end: 18px;
+      z-index: 1500;
+      display: grid;
+      gap: 9px;
+    }
+
+    .floating-btn {
+      width: 52px;
+      height: 52px;
+      border: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+    }
+
+    .floating-whatsapp {
+      background: #25d366;
+    }
+
+    .floating-call {
+      background: var(--red);
+    }
+
+    .floating-location {
+      background: var(--blue);
+    }
+
+    /* =========================
+       LOCATION STATUS
+    ========================= */
+
+    .location-status {
+      display: none;
+      position: fixed;
+      bottom: 85px;
+      inset-inline: 18px;
+      max-width: 500px;
+      margin-inline: auto;
+      z-index: 3000;
+      background: var(--navy);
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    /* =========================
+       SCROLL ANIMATION
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1000px) {
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cases-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        --header-height: 66px;
+      }
+
+      .container {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .header-call {
+        display: none;
+      }
+
+      .brand-text {
+        max-width: 150px;
+      }
+
+      .hero {
+        padding: 45px 0 30px;
+      }
+
+      .hero h1 {
+        font-size: 37px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .feature-grid,
+      .cases-grid,
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .modal-actions {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 45px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .feature-grid,
+      .cases-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .language-select {
+        max-width: 90px;
+      }
+
+      .splash-card {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================
+     LANGUAGE SPLASH
+========================= -->
+
+<div id="languageSplash">
+  <div class="splash-card">
+
+    <div class="logo" aria-hidden="true">🚨</div>
+
+    <h1>بوابة الطوارئ الميدانية</h1>
+
+    <p>
+      اختر اللغة للمتابعة<br>
+      Select your language / زبان منتخب کریں
+    </p>
+
+    <div class="language-buttons">
+      <button class="language-btn ar" onclick="selectLanguage('ar')">
+        🇸🇦 العربية
+      </button>
+
+      <button class="language-btn en" onclick="selectLanguage('en')">
+        🇬🇧 English
+      </button>
+
+      <button class="language-btn ur" onclick="selectLanguage('ur')">
+        🇵🇰 اردو
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="site-header">
+  <div class="container header-inner">
+
+    <a href="#home" class="brand" onclick="closeMobileMenu()">
+      <span class="brand-logo">🚨</span>
+      <span class="brand-text" data-i18n="brand">
+        بوابة الاستجابة للطوارئ
+      </span>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#home" data-i18n="navHome">الرئيسية</a>
+      <a href="#cases" data-i18n="navCases">حالات الطوارئ</a>
+      <a href="#team" data-i18n="navTeam">فريق الطوارئ</a>
+      <a href="#about" data-i18n="navAbout">من نحن</a>
+      <a href="#contact" data-i18n="navContact">تواصل معنا</a>
+    </nav>
+
+    <div class="header-actions">
+
+      <select
+        id="languageSelect"
+        class="language-select"
+        aria-label="Language"
+        onchange="selectLanguage(this.value)">
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="ur">اردو</option>
+      </select>
+
+      <a
+        class="header-call"
+        href="tel:+966501160516"
+        data-i18n="callNow">
+        📞 اتصال طوارئ
+      </a>
+
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        onclick="toggleMobileMenu()"
+        aria-label="Menu">
+        ☰
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<nav id="mobileMenu" class="mobile-menu">
+  <a href="#home" onclick="closeMobileMenu()" data-i18n="navHome">الرئيسية</a>
+  <a href="#cases" onclick="closeMobileMenu()" data-i18n="navCases">حالات الطوارئ</a>
+  <a href="#team" onclick="closeMobileMenu()" data-i18n="navTeam">فريق الطوارئ</a>
+  <a href="#about" onclick="closeMobileMenu()" data-i18n="navAbout">من نحن</a>
+  <a href="#contact" onclick="closeMobileMenu()" data-i18n="navContact">تواصل معنا</a>
+</nav>
+
+
+<!-- =========================
+     EMERGENCY BAR
+========================= -->
+
+<div class="emergency-bar">
+  <div class="container emergency-inner">
+    <strong data-i18n="hotline">خط الطوارئ الميداني 24/7</strong>
+
+    <a class="emergency-number" href="tel:+966501160516">
+      📞 050 116 0516
+    </a>
+
+    <button
+      class="btn"
+      style="background:#fff;color:#8f1720;min-height:40px;padding:7px 13px"
+      onclick="shareLocationAndAlert()"
+      data-i18n="shareEmergency">
+      📍 مشاركة موقعي للطوارئ
+    </button>
+  </div>
+</div>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<main id="home">
+
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div class="reveal">
+
+      <div class="eyebrow" data-i18n="heroEyebrow">
+        🛡️ السلامة أولاً
+      </div>
+
+      <h1 data-i18n="heroTitle">
+        استجابة أسرع.<br>
+        <span>قرار أكثر أماناً.</span>
+      </h1>
+
+      <p data-i18n="heroText">
+        بوابة ميدانية موحدة للوصول السريع إلى حالات الطوارئ،
+        تعليمات الإسعافات الأولية، فريق الاستجابة ومشاركة الموقع.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          href="#cases"
+          class="btn btn-primary"
+          data-i18n="heroPrimary">
+          🚨 اختر حالة طوارئ
+        </a>
+
+        <button
+          class="btn btn-secondary"
+          onclick="shareLocationAndAlert()"
+          data-i18n="heroSecondary">
+          📍 مشاركة موقعي
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="hero-panel reveal">
+
+      <div class="hero-panel-title" data-i18n="quickActions">
+        إجراءات سريعة
+      </div>
+
+      <div class="quick-grid">
+
+        <a class="quick-action" href="tel:+966501160516">
+          <span class="icon">📞</span>
+          <span data-i18n="quickCall">اتصال</span>
+        </a>
+
+        <button class="quick-action" onclick="shareLocationAndAlert()">
+          <span class="icon">📍</span>
+          <span data-i18n="quickLocation">GPS</span>
+        </button>
+
+        <a class="quick-action" href="#cases">
+          <span class="icon">🚨</span>
+          <span data-i18n="quickCases">الحالات</span>
+        </a>
+
+        <a class="quick-action" href="#team">
+          <span class="icon">👥</span>
+          <span data-i18n="quickTeam">الفريق</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section>
+  <div class="container">
+
+    <div class="section-heading reveal">
+      <div class="kicker" data-i18n="featuresKicker">Emergency Portal</div>
+      <h2 data-i18n="featuresTitle">كل ما تحتاجه في لحظة الطوارئ</h2>
+      <p data-i18n="featuresText">
+        أدوات واضحة وسريعة مصممة للاستخدام الميداني من الهاتف.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+
+      <article class="feature-card reveal">
+        <div class="feature-icon">🚨</div>
+        <h3 data-i18n="feature1Title">حالات واضحة</h3>
+        <p data-i18n="feature1Text">
+          16 سيناريو طوارئ مع تعليمات عملية مختصرة.
+        </p>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="feature-icon">📍</div>
+        <h3 data-i18n="feature2Title">مشاركة الموقع</h3>
+        <p data-i18n="feature2Text">
+          مشاركة موقع الجهاز عند توفر GPS.
+        </p>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="feature-icon">📞</div>
+        <h3 data-i18n="feature3Title">اتصال مباشر</h3>
+        <p data-i18n="feature3Text">
+          اتصال سريع بفريق الطوارئ من ضغطة واحدة.
+        </p>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="feature-icon">📴</div>
+        <h3 data-i18n="feature4Title">جاهز دون اتصال</h3>
+        <p data-i18n="feature4Text">
+          يعمل التطبيق كـ PWA ويمكن تثبيته على الهاتف.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     CASES
+========================= -->
+
+<section id="cases">
+  <div class="container">
+
+    <div class="section-heading reveal">
+      <div class="kicker" data-i18n="casesKicker">Emergency Scenarios</div>
+      <h2 data-i18n="casesTitle">حالات الطوارئ</h2>
+      <p data-i18n="casesText">
+        ابحث عن الحالة أو اخترها لعرض الإرشادات.
+      </p>
+    </div>
+
+    <div class="case-toolbar">
+
+      <div class="search-box">
+        <span>🔎</span>
+        <input
+          id="caseSearch"
+          type="search"
+          autocomplete="off"
+          data-i18n-placeholder="searchPlaceholder"
+          placeholder="ابحث عن حالة...">
+      </div>
+
+      <select id="caseFilter" class="case-filter">
+        <option value="all" data-i18n="filterAll">كل الحالات</option>
+        <option value="medical" data-i18n="filterMedical">طبية</option>
+        <option value="fire" data-i18n="filterFire">حريق ومواد خطرة</option>
+        <option value="construction" data-i18n="filterConstruction">إنشاءات ومعدات</option>
+        <option value="environment" data-i18n="filterEnvironment">بيئة وطقس</option>
+      </select>
+
+    </div>
+
+    <div id="casesGrid" class="cases-grid"></div>
+
+    <div id="emptyState" class="empty-state" data-i18n="noResults">
+      لا توجد نتائج مطابقة.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     TEAM
+========================= -->
+
+<section id="team">
+  <div class="container">
+
+    <div class="section-heading reveal">
+      <div class="kicker" data-i18n="teamKicker">Emergency Management</div>
+      <h2 data-i18n="teamTitle">فريق إدارة الطوارئ</h2>
+      <p data-i18n="teamText">
+        أرقام مباشرة لأعضاء فريق الاستجابة الميداني.
+      </p>
+    </div>
+
+    <div class="team-table-wrap reveal">
+
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="role">الدور</th>
+            <th data-i18n="name">الاسم</th>
+            <th data-i18n="position">المنصب</th>
+            <th data-i18n="directCall">الاتصال</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Incident Commander</td>
+            <td>MAHMOUD ABDO</td>
+            <td>PROJECT MANAGER</td>
+            <td>
+              <a class="call-btn" href="tel:+966560670704">📞 056 067 0704</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Deputy Incident Commander</td>
+            <td>SAYED ABDELGALIL</td>
+            <td>CONST. MANAGER</td>
+            <td>
+              <a class="call-btn" href="tel:+966541722783">📞 054 172 2783</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Liaison / Logistics</td>
+            <td>MOHAMED RIDWAN</td>
+            <td>LOGISTIC</td>
+            <td>
+              <a class="call-btn" href="tel:+966556001286">📞 055 600 1286</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Safety Lead</td>
+            <td>MOHAMED MUBIN</td>
+            <td>H&S MANAGER</td>
+            <td>
+              <a class="call-btn" href="tel:+966555432563">📞 055 543 2563</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Field Commander</td>
+            <td>SELIM METWALLY</td>
+            <td>SITE ENGINEER</td>
+            <td>
+              <a class="call-btn" href="tel:+966594985259">📞 059 498 5259</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Assembly Point Lead</td>
+            <td>SWAMY KUMAR</td>
+            <td>SAFETY SUPERVISOR</td>
+            <td>
+              <a class="call-btn" href="tel:+966546256375">📞 054 625 6375</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Staging Area Lead</td>
+            <td>ALI RADWAN</td>
+            <td>SITE SUPERVISOR</td>
+            <td>
+              <a class="call-btn" href="tel:+966575261772">📞 057 526 1772</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Area Warden</td>
+            <td>KEVIN MALVAR</td>
+            <td>ENGINEER</td>
+            <td>
+              <a class="call-btn" href="tel:+966539062539">📞 053 906 2539</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Area Warden</td>
+            <td>SAYED ALI</td>
+            <td>FOREMAN</td>
+            <td>
+              <a class="call-btn" href="tel:+966573944243">📞 057 394 4243</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Security</td>
+            <td>Md. HASSAN</td>
+            <td>SECURITY</td>
+            <td>
+              <a class="call-btn" href="tel:+966573944243">📞 057 394 4243</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Medical Response</td>
+            <td>MUHAMED MARIE</td>
+            <td>SITE NURSE</td>
+            <td>
+              <a class="call-btn" href="tel:+966570389524">📞 057 038 9524</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>First Aider</td>
+            <td>HUSSAIN SAID</td>
+            <td>SAFETY SUPERVISOR</td>
+            <td>
+              <a class="call-btn" href="tel:+966539504653">📞 053 950 4653</a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+  <div class="container about-grid">
+
+    <article class="about-card reveal">
+
+      <div class="section-heading">
+        <div class="kicker" data-i18n="aboutKicker">About</div>
+        <h2 data-i18n="aboutTitle">السلامة والاستجابة أولاً</h2>
+      </div>
+
+      <p data-i18n="aboutText">
+        تم تصميم البوابة لتكون نقطة وصول موحدة للمعلومات الأساسية
+        أثناء حالات الطوارئ الميدانية، مع التركيز على السرعة،
+        الوضوح وسهولة الاستخدام على الهواتف.
+      </p>
+
+    </article>
+
+    <article class="about-card reveal">
+
+      <h3 data-i18n="valuesTitle">قيم البوابة</h3>
+
+      <div class="values">
+
+        <div class="value">
+          <div class="value-icon">⚡</div>
+          <div>
+            <strong data-i18n="value1Title">السرعة</strong>
+            <p data-i18n="value1Text">الوصول للمعلومة والاتصال بأقل عدد من الخطوات.</p>
+          </div>
+        </div>
+
+        <div class="value">
+          <div class="value-icon">🛡️</div>
+          <div>
+            <strong data-i18n="value2Title">السلامة</strong>
+            <p data-i18n="value2Text">إرشادات محافظة تقلل المخاطر على المصاب والمستجيب.</p>
+          </div>
+        </div>
+
+        <div class="value">
+          <div class="value-icon">📱</div>
+          <div>
+            <strong data-i18n="value3Title">سهولة الاستخدام</strong>
+            <p data-i18n="value3Text">واجهة مصممة أولاً للهاتف والعمل الميداني.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section id="contact">
+
+  <div class="container contact-grid">
+
+    <div class="contact-info reveal">
+
+      <h2 data-i18n="contactTitle">تواصل معنا</h2>
+
+      <p data-i18n="contactText">
+        في الحالات العاجلة استخدم الاتصال المباشر بدلاً من نموذج التواصل.
+      </p>
+
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div>
+          <strong data-i18n="contactPhone">الهاتف</strong>
+          <br>
+          <a href="tel:+966501160516">050 116 0516</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div>
+          <strong data-i18n="contactLocation">الموقع</strong>
+          <br>
+          <span data-i18n="contactLocationText">مشروع الدرعية - المملكة العربية السعودية</span>
+        </div>
+      </div>
+
+      <a
+        class="btn btn-primary"
+        href="https://wa.me/966501160516"
+        target="_blank"
+        rel="noopener noreferrer">
+        💬 WhatsApp
+      </a>
+
+    </div>
+
+
+    <form id="contactForm" class="contact-form reveal">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label data-i18n="fullName">الاسم الكامل</label>
+          <input required name="name" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label data-i18n="email">البريد الإلكتروني</label>
+          <input required type="email" name="email" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label data-i18n="phone">رقم الهاتف</label>
+          <input name="phone" type="tel" autocomplete="tel">
+        </div>
+
+        <div class="field">
+          <label data-i18n="subject">الموضوع</label>
+          <input required name="subject">
+        </div>
+
+        <div class="field full">
+          <label data-i18n="message">الرسالة</label>
+          <textarea required name="message"></textarea>
+        </div>
+
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        style="margin-top:15px;width:100%"
+        data-i18n="send">
+        إرسال
+      </button>
+
+      <div id="contactSuccess" class="success-message"></div>
+
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+  <div class="container footer-inner">
+
+    <div>
+      © <span id="year"></span>
+      <span data-i18n="footerText">
+        بوابة الاستجابة للطوارئ - مشروع الدرعية
+      </span>
+    </div>
+
+    <div class="footer-links">
+      <a href="#about" data-i18n="navAbout">من نحن</a>
+      <a href="#contact" data-i18n="navContact">تواصل معنا</a>
+      <a href="#cases" data-i18n="navCases">حالات الطوارئ</a>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div
+  id="caseModal"
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalTitle">
+
+  <div class="modal-card">
+
+    <button
+      class="modal-close"
+      onclick="closeCaseModal()"
+      aria-label="Close">
+      ×
+    </button>
+
+    <h2 id="modalTitle" class="modal-title"></h2>
+
+    <div class="location-box">
+      📦 <span data-i18n="firstAidBox">أقرب نقطة إسعافات:</span>
+      <strong id="modalBox"></strong>
+    </div>
+
+    <h3 data-i18n="instructions">إرشادات التعامل</h3>
+
+    <ol id="modalSteps" class="instruction-list"></ol>
+
+    <h3 data-i18n="supplies">المستلزمات</h3>
+
+    <div id="modalKit" class="kit-list"></div>
+
+    <div class="modal-actions">
+
+      <button
+        class="btn btn-primary"
+        onclick="shareLocationAndAlert()"
+        data-i18n="dispatch">
+        🚨 إرسال تنبيه
+      </button>
+
+      <a
+        href="tel:+966501160516"
+        class="btn"
+        style="background:#07864b;color:#fff"
+        data-i18n="callEmergency">
+        📞 اتصال
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================
+     FLOATING ACTIONS
+========================= -->
+
+<div class="floating-actions">
+
+  <a
+    href="https://wa.me/966501160516"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="floating-btn floating-whatsapp"
+    aria-label="WhatsApp">
+    💬
+  </a>
+
+  <a
+    href="tel:+966501160516"
+    class="floating-btn floating-call"
+    aria-label="Emergency Call">
+    📞
+  </a>
+
+  <button
+    class="floating-btn floating-location"
+    onclick="shareLocationAndAlert()"
+    aria-label="Share Location">
+    📍
+  </button>
+
+</div>
+
+
+<div id="locationStatus" class="location-status"></div>
+
+
+<script>
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+/*
+ IMPORTANT SECURITY NOTE:
+
+ DO NOT put your Telegram Bot Token inside this HTML.
+
+ Recommended production setup:
+
+ Browser
+    ↓
+ YOUR SERVERLESS ENDPOINT
+    ↓
+ Telegram Bot API
+
+ Example:
+
+ const TELEGRAM_ENDPOINT =
+   "https://YOUR-WORKER.workers.dev/emergency";
+
+ Your Cloudflare Worker / backend keeps:
+ TELEGRAM_BOT_TOKEN
+ TELEGRAM_CHAT_ID
+
+ private.
+
+*/
+const CONFIG = {
+  emergencyPhone: "+966501160516",
+
+  /*
+    Replace this URL with your secure backend endpoint.
+
+    If you haven't created one yet, leave it empty.
+    The app will still work, but Telegram won't be sent.
+  */
+  telegramEndpoint: "",
+
+  whatsappNumber: "966501160516"
+};
+
+
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
+
+const translations = {
+
+  ar: {
+    brand: "بوابة الاستجابة للطوارئ",
+    navHome: "الرئيسية",
+    navCases: "حالات الطوارئ",
+    navTeam: "فريق الطوارئ",
+    navAbout: "من نحن",
+    navContact: "تواصل معنا",
+    callNow: "📞 اتصال طوارئ",
+
+    hotline: "خط الطوارئ الميداني 24/7",
+    shareEmergency: "📍 مشاركة موقعي للطوارئ",
+
+    heroEyebrow: "🛡️ السلامة أولاً",
+    heroTitle: "استجابة أسرع.<br><span>قرار أكثر أماناً.</span>",
+    heroText:
+      "بوابة ميدانية موحدة للوصول السريع إلى حالات الطوارئ، تعليمات الإسعافات الأولية، فريق الاستجابة ومشاركة الموقع.",
+    heroPrimary: "🚨 اختر حالة طوارئ",
+    heroSecondary: "📍 مشاركة موقعي",
+
+    quickActions: "إجراءات سريعة",
+    quickCall: "اتصال",
+    quickLocation: "GPS",
+    quickCases: "الحالات",
+    quickTeam: "الفريق",
+
+    featuresKicker: "Emergency Portal",
+    featuresTitle: "كل ما تحتاجه في لحظة الطوارئ",
+    featuresText:
+      "أدوات واضحة وسريعة مصممة للاستخدام الميداني من الهاتف.",
+
+    feature1Title: "حالات واضحة",
+    feature1Text: "16 سيناريو طوارئ مع تعليمات عملية مختصرة.",
+    feature2Title: "مشاركة الموقع",
+    feature2Text: "مشاركة موقع الجهاز عند توفر GPS.",
+    feature3Title: "اتصال مباشر",
+    feature3Text: "اتصال سريع بفريق الطوارئ من ضغطة واحدة.",
+    feature4Title: "جاهز دون اتصال",
+    feature4Text: "يعمل التطبيق كـ PWA ويمكن تثبيته على الهاتف.",
+
+    casesKicker: "Emergency Scenarios",
+    casesTitle: "حالات الطوارئ",
+    casesText: "ابحث عن الحالة أو اخترها لعرض الإرشادات.",
+
+    searchPlaceholder: "ابحث عن حالة...",
+    filterAll: "كل الحالات",
+    filterMedical: "طبية",
+    filterFire: "حريق ومواد خطرة",
+    filterConstruction: "إنشاءات ومعدات",
+    filterEnvironment: "بيئة وطقس",
+    noResults: "لا توجد نتائج مطابقة.",
+
+    teamKicker: "Emergency Management",
+    teamTitle: "فريق إدارة الطوارئ",
+    teamText: "أرقام مباشرة لأعضاء فريق الاستجابة الميداني.",
+    role: "الدور",
+    name: "الاسم",
+    position: "المنصب",
+    directCall: "الاتصال",
+
+    aboutKicker: "About",
+    aboutTitle: "السلامة والاستجابة أولاً",
+    aboutText:
+      "تم تصميم البوابة لتكون نقطة وصول موحدة للمعلومات الأساسية أثناء حالات الطوارئ الميدانية، مع التركيز على السرعة، الوضوح وسهولة الاستخدام على الهواتف.",
+
+    valuesTitle: "قيم البوابة",
+    value1Title: "السرعة",
+    value1Text: "الوصول للمعلومة والاتصال بأقل عدد من الخطوات.",
+    value2Title: "السلامة",
+    value2Text: "إرشادات محافظة تقلل المخاطر على المصاب والمستجيب.",
+    value3Title: "سهولة الاستخدام",
+    value3Text: "واجهة مصممة أولاً للهاتف والعمل الميداني.",
+
+    contactTitle: "تواصل معنا",
+    contactText:
+      "في الحالات العاجلة استخدم الاتصال المباشر بدلاً من نموذج التواصل.",
+    contactPhone: "الهاتف",
+    contactLocation: "الموقع",
+    contactLocationText: "مشروع الدرعية - المملكة العربية السعودية",
+
+    fullName: "الاسم الكامل",
+    email: "البريد الإلكتروني",
+    phone: "رقم الهاتف",
+    subject: "الموضوع",
+    message: "الرسالة",
+    send: "إرسال",
+
+    firstAidBox: "أقرب نقطة إسعافات:",
+    instructions: "إرشادات التعامل",
+    supplies: "المستلزمات",
+    dispatch: "🚨 إرسال تنبيه",
+    callEmergency: "📞 اتصال",
+
+    footerText: "بوابة الاستجابة للطوارئ - مشروع الدرعية",
+
+    locationGetting: "جاري الحصول على موقعك...",
+    locationDenied: "لم يتم السماح بالوصول إلى الموقع.",
+    locationUnsupported: "المتصفح لا يدعم تحديد الموقع.",
+    locationSuccess: "تم الحصول على موقعك.",
+    locationError: "تعذر الحصول على الموقع.",
+    telegramNotConfigured:
+      "مشاركة الموقع جاهزة، لكن Telegram يحتاج إعداد الخادم.",
+    telegramSuccess: "تم إرسال تنبيه الطوارئ.",
+    telegramError: "تعذر إرسال التنبيه. يرجى الاتصال مباشرة.",
+    formSuccess: "تم استلام رسالتك بنجاح.",
+
+    alertMessage: "حالة طوارئ",
+    gpsLabel: "موقع GPS"
+  },
+
+  en: {
+    brand: "Emergency Response Portal",
+    navHome: "Home",
+    navCases: "Emergency Cases",
+    navTeam: "Emergency Team",
+    navAbout: "About",
+    navContact: "Contact",
+    callNow: "📞 Emergency Call",
+
+    hotline: "24/7 Field Emergency Hotline",
+    shareEmergency: "📍 Share Emergency Location",
+
+    heroEyebrow: "🛡️ Safety First",
+    heroTitle: "Faster Response.<br><span>Safer Decisions.</span>",
+    heroText:
+      "A field-ready emergency portal for rapid access to emergency scenarios, first-aid guidance, response team contacts and location sharing.",
+    heroPrimary: "🚨 Select Emergency",
+    heroSecondary: "📍 Share My Location",
+
+    quickActions: "Quick Actions",
+    quickCall: "Call",
+    quickLocation: "GPS",
+    quickCases: "Cases",
+    quickTeam: "Team",
+
+    featuresKicker: "Emergency Portal",
+    featuresTitle: "Everything You Need During an Emergency",
+    featuresText:
+      "Clear, fast tools designed for mobile field operations.",
+
+    feature1Title: "Clear Scenarios",
+    feature1Text: "16 emergency scenarios with concise response guidance.",
+    feature2Title: "Location Sharing",
+    feature2Text: "Share device location when GPS is available.",
+    feature3Title: "Direct Calling",
+    feature3Text: "Reach the emergency team with one tap.",
+    feature4Title: "Offline Ready",
+    feature4Text: "Installable PWA with offline support.",
+
+    casesKicker: "Emergency Scenarios",
+    casesTitle: "Emergency Cases",
+    casesText: "Search for a scenario or select one to view guidance.",
+
+    searchPlaceholder: "Search emergency cases...",
+    filterAll: "All Cases",
+    filterMedical: "Medical",
+    filterFire: "Fire & Hazardous Materials",
+    filterConstruction: "Construction & Equipment",
+    filterEnvironment: "Environment & Weather",
+    noResults: "No matching cases found.",
+
+    teamKicker: "Emergency Management",
+    teamTitle: "Emergency Management Team",
+    teamText: "Direct contact numbers for the field response team.",
+    role: "Role",
+    name: "Name",
+    position: "Position",
+    directCall: "Call",
+
+    aboutKicker: "About",
+    aboutTitle: "Safety and Response First",
+    aboutText:
+      "The portal provides a unified access point for critical emergency information, focusing on speed, clarity and mobile usability.",
+
+    valuesTitle: "Our Values",
+    value1Title: "Speed",
+    value1Text: "Reach critical information and contacts with minimal steps.",
+    value2Title: "Safety",
+    value2Text: "Conservative guidance designed to reduce risk.",
+    value3Title: "Usability",
+    value3Text: "A mobile-first interface for field operations.",
+
+    contactTitle: "Contact Us",
+    contactText:
+      "For urgent situations, use direct calling instead of the contact form.",
+    contactPhone: "Phone",
+    contactLocation: "Location",
+    contactLocationText: "Diriyah Project - Saudi Arabia",
+
+    fullName: "Full Name",
+    email: "Email",
+    phone: "Phone",
+    subject: "Subject",
+    message: "Message",
+    send: "Send",
+
+    firstAidBox: "Nearest First Aid Point:",
+    instructions: "Response Guidance",
+    supplies: "Supplies",
+    dispatch: "🚨 Send Alert",
+    callEmergency: "📞 Call",
+
+    footerText: "Emergency Response Portal - Diriyah Project",
+
+    locationGetting: "Getting your location...",
+    locationDenied: "Location permission was denied.",
+    locationUnsupported: "Geolocation is not supported.",
+    locationSuccess: "Location acquired.",
+    locationError: "Unable to obtain your location.",
+    telegramNotConfigured:
+      "Location sharing is ready, but Telegram server setup is required.",
+    telegramSuccess: "Emergency alert sent.",
+    telegramError: "Unable to send alert. Please call directly.",
+    formSuccess: "Your message was received successfully.",
+
+    alertMessage: "Emergency Case",
+    gpsLabel: "GPS Location"
+  },
+
+  ur: {
+    brand: "ایمرجنسی رسپانس پورٹل",
+    navHome: "ہوم",
+    navCases: "ہنگامی حالات",
+    navTeam: "ایمرجنسی ٹیم",
+    navAbout: "ہمارے بارے میں",
+    navContact: "رابطہ",
+
+    callNow: "📞 ایمرجنسی کال",
+    hotline: "24/7 فیلڈ ایمرجنسی ہاٹ لائن",
+    shareEmergency: "📍 ایمرجنسی لوکیشن شیئر کریں",
+
+    heroEyebrow: "🛡️ حفاظت سب سے پہلے",
+    heroTitle: "تیز رسپانس۔<br><span>محفوظ فیصلے۔</span>",
+    heroText:
+      "ایمرجنسی حالات، ابتدائی طبی امداد، رسپانس ٹیم اور GPS لوکیشن کے لیے موبائل فرینڈلی فیلڈ پورٹل۔",
+    heroPrimary: "🚨 ہنگامی حالت منتخب کریں",
+    heroSecondary: "📍 میری لوکیشن شیئر کریں",
+
+    quickActions: "فوری اقدامات",
+    quickCall: "کال",
+    quickLocation: "GPS",
+    quickCases: "حالات",
+    quickTeam: "ٹیم",
+
+    featuresKicker: "Emergency Portal",
+    featuresTitle: "ایمرجنسی کے وقت ضروری معلومات",
+    featuresText:
+      "فیلڈ میں موبائل استعمال کے لیے تیز اور واضح ٹولز۔",
+
+    feature1Title: "واضح حالات",
+    feature1Text: "16 ہنگامی حالات اور مختصر رہنمائی۔",
+    feature2Title: "لوکیشن شیئرنگ",
+    feature2Text: "GPS دستیاب ہونے پر موجودہ مقام شیئر کریں۔",
+    feature3Title: "براہ راست کال",
+    feature3Text: "ایک کلک سے ایمرجنسی ٹیم سے رابطہ کریں۔",
+    feature4Title: "آف لائن تیار",
+    feature4Text: "PWA ایپ آف لائن بھی استعمال کی جا سکتی ہے۔",
+
+    casesKicker: "Emergency Scenarios",
+    casesTitle: "ہنگامی حالات",
+    casesText: "حالت تلاش کریں یا رہنمائی دیکھنے کے لیے منتخب کریں۔",
+
+    searchPlaceholder: "ہنگامی حالت تلاش کریں...",
+    filterAll: "تمام حالات",
+    filterMedical: "طبی",
+    filterFire: "آگ اور خطرناک مواد",
+    filterConstruction: "تعمیرات اور مشینری",
+    filterEnvironment: "ماحول اور موسم",
+    noResults: "کوئی نتیجہ نہیں ملا۔",
+
+    teamKicker: "Emergency Management",
+    teamTitle: "ایمرجنسی مینجمنٹ ٹیم",
+    teamText: "فیلڈ رسپانس ٹیم کے براہ راست نمبرز۔",
+
+    role: "کردار",
+    name: "نام",
+    position: "عہدہ",
+    directCall: "کال",
+
+    aboutKicker: "About",
+    aboutTitle: "حفاظت اور رسپانس پہلے",
+    aboutText:
+      "یہ پورٹل ہنگامی حالات میں ضروری معلومات تک تیز اور واضح رسائی کے لیے بنایا گیا ہے۔",
+
+    valuesTitle: "ہماری اقدار",
+    value1Title: "رفتار",
+    value1Text: "کم سے کم مراحل میں ضروری معلومات تک رسائی۔",
+    value2Title: "حفاظت",
+    value2Text: "ایسی رہنمائی جو خطرات کو کم کرنے پر توجہ دیتی ہے۔",
+    value3Title: "آسان استعمال",
+    value3Text: "فیلڈ اور موبائل استعمال کے لیے ڈیزائن۔",
+
+    contactTitle: "رابطہ کریں",
+    contactText:
+      "فوری حالات میں رابطہ فارم کے بجائے براہ راست کال کریں۔",
+    contactPhone: "فون",
+    contactLocation: "مقام",
+    contactLocationText: "درعیہ پروجیکٹ - سعودی عرب",
+
+    fullName: "پورا نام",
+    email: "ای میل",
+    phone: "فون نمبر",
+    subject: "موضوع",
+    message: "پیغام",
+    send: "بھیجیں",
+
+    firstAidBox: "قریب ترین فرسٹ ایڈ پوائنٹ:",
+    instructions: "فوری ہدایات",
+    supplies: "ضروری سامان",
+    dispatch: "🚨 الرٹ بھیجیں",
+    callEmergency: "📞 کال",
+
+    footerText: "ایمرجنسی رسپانس پورٹل - درعیہ پروجیکٹ",
+
+    locationGetting: "آپ کی لوکیشن حاصل کی جا رہی ہے...",
+    locationDenied: "لوکیشن کی اجازت نہیں دی گئی۔",
+    locationUnsupported: "براؤزر لوکیشن سپورٹ نہیں کرتا۔",
+    locationSuccess: "لوکیشن حاصل ہو گئی۔",
+    locationError: "لوکیشن حاصل نہیں ہو سکی۔",
+    telegramNotConfigured:
+      "لوکیشن شیئرنگ تیار ہے، لیکن Telegram سرور سیٹ اپ ضروری ہے۔",
+    telegramSuccess: "ایمرجنسی الرٹ بھیج دیا گیا۔",
+    telegramError: "الرٹ نہیں بھیجا جا سکا۔ براہ راست کال کریں۔",
+    formSuccess: "آپ کا پیغام کامیابی سے موصول ہو گیا۔",
+
+    alertMessage: "ہنگامی حالت",
+    gpsLabel: "GPS مقام"
+  }
+};
+
+
+/* =========================================================
+   EMERGENCY CASE DATA
+========================================================= */
+
+const cases = [
+
+  {
+    id: 1,
+    category: "fire",
+    icon: "🔥",
+    title: {
+      ar: "حريق / انفجار",
+      en: "Fire / Explosion",
+      ur: "آگ / دھماکہ"
+    },
+    box: {
+      ar: "صندوق A - بوابات الموقع والمكاتب",
+      en: "Box A - Site Gates & Offices",
+      ur: "باکس A - سائٹ گیٹس اور دفاتر"
+    },
+    steps: {
+      ar: [
+        "فعّل الإنذار وأخلِ المنطقة فوراً.",
+        "توجه إلى نقطة التجمع المحددة.",
+        "ابتعد عن الدخان والمواد المشتعلة.",
+        "لا تحاول مكافحة حريق كبير إلا إذا كنت مدرباً والحريق ضمن حدود آمنة."
+      ],
+      en: [
+        "Activate the alarm and evacuate immediately.",
+        "Proceed to the designated assembly point.",
+        "Stay away from smoke and burning materials.",
+        "Do not fight a large fire unless trained and conditions are safe."
+      ],
+      ur: [
+        "الارم فعال کریں اور فوراً علاقہ خالی کریں۔",
+        "مقررہ اسمبلی پوائنٹ پر جائیں۔",
+        "دھوئیں اور جلتے ہوئے مواد سے دور رہیں۔",
+        "بڑی آگ بجھانے کی کوشش صرف تربیت یافتہ افراد کریں۔"
+      ]
+    },
+    kit: {
+      ar: ["طفاية حريق مناسبة", "بطانية حريق"],
+      en: ["Suitable fire extinguisher", "Fire blanket"],
+      ur: ["مناسب فائر ایکسٹنگوشر", "فائر بلینکٹ"]
+    }
+  },
+
+  {
+    id: 2,
+    category: "fire",
+    icon: "⚠️",
+    title: {
+      ar: "تسرب غاز / مواد كيميائية",
+      en: "Gas / Chemical Leak",
+      ur: "گیس / کیمیائی رساو"
+    },
+    box: {
+      ar: "صندوق B - منطقة التخزين",
+      en: "Box B - Storage Area",
+      ur: "باکس B - اسٹوریج ایریا"
+    },
+    steps: {
+      ar: [
+        "ابتعد عن مصدر التسرب واتجه إلى منطقة آمنة وفق خطة الموقع.",
+        "تجنب اللهب والشرر والمفاتيح الكهربائية إذا كان ذلك غير آمن.",
+        "لا تدخل منطقة ملوثة دون معدات الحماية والتدريب المناسب.",
+        "أبلغ فريق السلامة فوراً عن المادة والموقع إن أمكن."
+      ],
+      en: [
+        "Move away from the leak toward a safe area.",
+        "Avoid flames, sparks and unsafe electrical actions.",
+        "Do not enter a contaminated area without proper PPE and training.",
+        "Report the substance and location to the safety team if known."
+      ],
+      ur: [
+        "رساو کے مقام سے دور محفوظ علاقے کی طرف جائیں۔",
+        "آگ، چنگاری اور غیر محفوظ برقی کارروائی سے بچیں۔",
+        "مناسب PPE اور تربیت کے بغیر آلودہ علاقے میں داخل نہ ہوں۔",
+        "اگر ممکن ہو تو مادہ اور مقام کی اطلاع سیفٹی ٹیم کو دیں۔"
+      ]
+    },
+    kit: {
+      ar: ["معدات حماية مناسبة للمادة", "قفازات مناسبة"],
+      en: ["Chemical-appropriate PPE", "Suitable protective gloves"],
+      ur: ["مناسب حفاظتی سامان", "حفاظتی دستانے"]
+    }
+  },
+
+  {
+    id: 3,
+    category: "construction",
+    icon: "🏗️",
+    title: {
+      ar: "انهيار حفريات / انهيار",
+      en: "Excavation / Structural Collapse",
+      ur: "کھدائی / ڈھانچے کا گرنا"
+    },
+    box: {
+      ar: "صندوق C - قطاع الحفريات الرئيسي",
+      en: "Box C - Main Excavation Sector",
+      ur: "باکس C - کھدائی کا شعبہ"
+    },
+    steps: {
+      ar: [
+        "ابتعد عن الحواف غير المستقرة.",
+        "لا تدخل الحفرية أو تحاول الحفر للوصول للمحتجزين دون خطة إنقاذ وتأمين.",
+        "أوقف العمل وأبلغ فريق الإنقاذ.",
+        "أعطِ عدد الأشخاص المحتمل احتجازهم وموقعهم التقريبي."
+      ],
+      en: [
+        "Stay away from unstable edges.",
+        "Do not enter or dig into the excavation without a controlled rescue plan.",
+        "Stop work and alert the rescue team.",
+        "Report the estimated number and location of trapped people."
+      ],
+      ur: [
+        "غیر مستحکم کناروں سے دور رہیں۔",
+        "ریسکیو پلان کے بغیر کھدائی میں داخل نہ ہوں۔",
+        "کام روک کر ریسکیو ٹیم کو اطلاع دیں۔",
+        "پھنسے افراد کی ممکنہ تعداد اور مقام بتائیں۔"
+      ]
+    },
+    kit: {
+      ar: ["معدات إنقاذ معتمدة", "نقالة"],
+      en: ["Approved rescue equipment", "Stretcher"],
+      ur: ["منظور شدہ ریسکیو سامان", "سٹریچر"]
+    }
+  },
+
+  {
+    id: 4,
+    category: "medical",
+    icon: "⚡",
+    title: {
+      ar: "صعق كهربائي",
+      en: "Electric Shock",
+      ur: "بجلی کا جھٹکا"
+    },
+    box: {
+      ar: "صندوق D - لوحة التوزيع الرئيسية",
+      en: "Box D - Main Distribution Panel",
+      ur: "باکس D - مین ڈسٹری بیوشن پینل"
+    },
+    steps: {
+      ar: [
+        "لا تلمس المصاب ما دام مصدر الكهرباء قد يكون فعالاً.",
+        "اعزل مصدر الطاقة بطريقة آمنة ومن شخص مؤهل.",
+        "اتصل بالطوارئ وابدأ الإنعاش إذا كان ذلك آمناً وكنت مدرباً.",
+        "راقب التنفس حتى وصول المساعدة."
+      ],
+      en: [
+        "Do not touch the victim while electrical power may be live.",
+        "Have the power isolated safely by a qualified person.",
+        "Call emergency services and begin CPR if safe and trained.",
+        "Monitor breathing until help arrives."
+      ],
+      ur: [
+        "جب تک بجلی کا ذریعہ فعال ہو متاثرہ شخص کو نہ چھوئیں۔",
+        "کسی اہل شخص سے بجلی محفوظ طریقے سے بند کروائیں۔",
+        "مدد طلب کریں اور محفوظ ہونے پر تربیت یافتہ فرد CPR شروع کرے۔",
+        "مدد آنے تک سانس کی نگرانی کریں۔"
+      ]
+    },
+    kit: {
+      ar: ["قفازات عازلة معتمدة", "مستلزمات حروق"],
+      en: ["Approved electrical PPE", "Burn dressings"],
+      ur: ["منظور شدہ برقی حفاظتی سامان", "برن ڈریسنگ"]
+    }
+  },
+
+  {
+    id: 5,
+    category: "construction",
+    icon: "🚪",
+    title: {
+      ar: "احتجاز في مكان مغلق",
+      en: "Confined Space Emergency",
+      ur: "تنگ جگہ میں پھنس جانا"
+    },
+    box: {
+      ar: "صندوق E - الخزانات والأنابيب",
+      en: "Box E - Tanks & Pipes",
+      ur: "باکس E - ٹینک اور پائپ"
+    },
+    steps: {
+      ar: [
+        "لا تدخل المكان المغلق لإنقاذ شخص دون تصريح ومعدات إنقاذ مناسبة.",
+        "اتصل بفريق الإنقاذ المختص فوراً.",
+        "راقب المكان من الخارج ولا تعرض نفسك للخطر.",
+        "استخدم أجهزة التنفس والإنقاذ فقط إذا كنت مدرباً ومصرحاً."
+      ],
+      en: [
+        "Do not enter a confined space for rescue without authorization and proper equipment.",
+        "Call the specialist rescue team immediately.",
+        "Monitor from outside without exposing yourself.",
+        "Use respiratory and rescue equipment only if trained and authorized."
+      ],
+      ur: [
+        "مناسب اجازت اور سامان کے بغیر ریسکیو کے لیے داخل نہ ہوں۔",
+        "فوری طور پر ماہر ریسکیو ٹیم کو بلائیں۔",
+        "خود کو خطرے میں ڈالے بغیر باہر سے نگرانی کریں۔",
+        "صرف تربیت یافتہ اور مجاز افراد ہی ریسکیو آلات استعمال کریں۔"
+      ]
+    },
+    kit: {
+      ar: ["معدات إنقاذ الأماكن المغلقة", "جهاز تنفس معتمد"],
+      en: ["Confined-space rescue equipment", "Approved respiratory equipment"],
+      ur: ["کنفائنڈ اسپیس ریسکیو سامان", "منظور شدہ سانس کا سامان"]
+    }
+  },
+
+  {
+    id: 6,
+    category: "construction",
+    icon: "🧗",
+    title: {
+      ar: "سقوط من ارتفاع",
+      en: "Fall from Height",
+      ur: "بلندی سے گرنا"
+    },
+    box: {
+      ar: "صندوق F - السقالات والرافعات",
+      en: "Box F - Scaffolding & Lifting Zone",
+      ur: "باکس F - اسکافولڈنگ زون"
+    },
+    steps: {
+      ar: [
+        "لا تحرك المصاب إلا إذا كان هناك خطر مباشر يهدد حياته.",
+        "اتصل بالطوارئ وفريق الإنقاذ.",
+        "ثبّت المصاب قدر الإمكان دون تغيير وضعية العمود الفقري.",
+        "راقب التنفس والاستجابة حتى وصول المختصين."
+      ],
+      en: [
+        "Do not move the victim unless there is an immediate life-threatening hazard.",
+        "Call emergency services and the rescue team.",
+        "Keep the person still and avoid unnecessary spinal movement.",
+        "Monitor breathing and responsiveness."
+      ],
+      ur: [
+        "اگر فوری جان کا خطر نہ ہو تو متاثرہ شخص کو نہ ہلائیں۔",
+        "ایمرجنسی اور ریسکیو ٹیم کو بلائیں۔",
+        "ریڑھ کی ہڈی کی غیر ضروری حرکت سے بچیں۔",
+        "سانس اور ہوش کی نگرانی کریں۔"
+      ]
+    },
+    kit: {
+      ar: ["نقالة مناسبة", "معدات تثبيت معتمدة"],
+      en: ["Appropriate stretcher", "Approved immobilization equipment"],
+      ur: ["مناسب سٹریچر", "منظور شدہ اموبلائزیشن سامان"]
+    }
+  },
+
+  {
+    id: 7,
+    category: "medical",
+    icon: "🩸",
+    title: {
+      ar: "نزيف حاد / قطع عميق",
+      en: "Severe Bleeding / Deep Cut",
+      ur: "شدید خون بہنا / گہرا کٹ"
+    },
+    box: {
+      ar: "صندوق A - العيادة الميدانية",
+      en: "Box A - Field Clinic",
+      ur: "باکس A - فیلڈ کلینک"
+    },
+    steps: {
+      ar: [
+        "اضغط مباشرة وباستمرار على الجرح باستخدام شاش أو قطعة قماش نظيفة.",
+        "إذا تشبعت الضمادة بالدم، أضف طبقة أخرى فوقها ولا تزل الأولى.",
+        "اطلب المساعدة الطبية للحالات الشديدة.",
+        "إذا كان النزيف مهدداً للحياة، استخدم عاصبة تجارية فقط إذا كنت مدرباً عليها."
+      ],
+      en: [
+        "Apply firm, continuous direct pressure using sterile gauze or clean cloth.",
+        "If blood soaks through, add more material without removing the first layer.",
+        "Seek urgent medical help for severe bleeding.",
+        "For life-threatening limb bleeding, use a commercial tourniquet only if trained."
+      ],
+      ur: [
+        "صاف گاز یا کپڑے سے زخم پر مسلسل مضبوط دباؤ دیں۔",
+        "اگر پٹی خون سے بھر جائے تو پہلی پٹی نہ ہٹائیں بلکہ اوپر مزید مواد رکھیں۔",
+        "شدید خون بہنے کی صورت میں فوری طبی مدد حاصل کریں۔",
+        "جان لیوا خون بہنے میں تربیت یافتہ فرد ٹورنی کیٹ استعمال کرے۔"
+      ]
+    },
+    kit: {
+      ar: ["شاش معقم", "ضماد ضاغط", "عاصبة تجارية للحالات المؤهلة"],
+      en: ["Sterile gauze", "Pressure dressing", "Commercial tourniquet when appropriate"],
+      ur: ["سٹرائل گاز", "پریشر ڈریسنگ", "مناسب صورت میں ٹورنی کیٹ"]
+    }
+  },
+
+  {
+    id: 8,
+    category: "medical",
+    icon: "🫀",
+    title: {
+      ar: "توقف تنفس / توقف قلب",
+      en: "Cardiac Arrest / Unresponsive Person",
+      ur: "دل بند ہونا / بے ہوشی"
+    },
+    box: {
+      ar: "صندوق A - العيادة الميدانية",
+      en: "Box A - Field Clinic",
+      ur: "باکس A - فیلڈ کلینک"
+    },
+    steps: {
+      ar: [
+        "تحقق من الاستجابة والتنفس الطبيعي.",
+        "اطلب الطوارئ واطلب جهاز AED إن توفر.",
+        "إذا كان المصاب غير مستجيب ولا يتنفس بشكل طبيعي، ابدأ CPR حسب تدريبك.",
+        "اتبع تعليمات جهاز AED الصوتية عند توفره."
+      ],
+      en: [
+        "Check responsiveness and normal breathing.",
+        "Call emergency services and request an AED if available.",
+        "If unresponsive and not breathing normally, start CPR according to your training.",
+        "Follow the AED voice prompts when available."
+      ],
+      ur: [
+        "ردعمل اور معمول کی سانس چیک کریں۔",
+        "ایمرجنسی کو کال کریں اور AED منگوائیں۔",
+        "اگر شخص بے ہوش ہو اور معمول کے مطابق سانس نہ لے رہا ہو تو اپنی تربیت کے مطابق CPR شروع کریں۔",
+        "AED کی صوتی ہدایات پر عمل کریں۔"
+      ]
+    },
+    kit: {
+      ar: ["قناع CPR", "AED"],
+      en: ["CPR barrier mask", "AED"],
+      ur: ["CPR ماسک", "AED"]
+    }
+  },
+
+  {
+    id: 9,
+    category: "medical",
+    icon: "🦴",
+    title: {
+      ar: "كسور / التواءات",
+      en: "Fracture / Sprain",
+      ur: "ہڈی ٹوٹنا / موچ"
+    },
+    box: {
+      ar: "صندوق B - منطقة الإنشاءات",
+      en: "Box B - Construction Zone",
+      ur: "باکس B - کنسٹرکشن زون"
+    },
+    steps: {
+      ar: [
+        "أوقف استخدام الطرف المصاب وثبته في الوضع المريح.",
+        "لا تحاول إعادة العظم إلى مكانه.",
+        "ضع كمادة باردة ملفوفة بقماش لتخفيف التورم.",
+        "اطلب تقييماً طبياً عند الاشتباه بكسر أو إصابة شديدة."
+      ],
+      en: [
+        "Stop using the injured limb and keep it in a comfortable position.",
+        "Do not attempt to realign a bone.",
+        "Apply a wrapped cold pack to reduce swelling.",
+        "Seek medical assessment when a fracture or serious injury is suspected."
+      ],
+      ur: [
+        "زخمی عضو کو استعمال نہ کریں اور آرام دہ حالت میں رکھیں۔",
+        "ہڈی کو خود سیدھا کرنے کی کوشش نہ کریں۔",
+        "سوجن کم کرنے کے لیے کپڑے میں لپٹا ٹھنڈا پیک لگائیں۔",
+        "فریکچر یا شدید چوٹ کے شبہ میں طبی معائنہ کروائیں۔"
+      ]
+    },
+    kit: {
+      ar: ["جبيرة مناسبة", "رباط مثلث"],
+      en: ["Appropriate splint", "Triangular bandage"],
+      ur: ["مناسب اسپلنٹ", "مثلث پٹی"]
+    }
+  },
+
+  {
+    id: 10,
+    category: "environment",
+    icon: "☀️",
+    title: {
+      ar: "إجهاد حراري / ضربة حرارة",
+      en: "Heat Stress / Heat Illness",
+      ur: "ہیٹ اسٹریس / گرمی کی بیماری"
+    },
+    box: {
+      ar: "صندوق C - مناطق الاستراحة والمظلات",
+      en: "Box C - Rest Shelter",
+      ur: "باکس C - ورکرز شیلٹر"
+    },
+    steps: {
+      ar: [
+        "أوقف العمل وانقل الشخص إلى مكان بارد ومظلل.",
+        "خفف الملابس الزائدة وابدأ التبريد.",
+        "إذا كان واعياً وقادراً على البلع، أعطه سوائل مناسبة.",
+        "إذا كان مشوشاً أو فاقد الوعي أو حالته شديدة، اتصل بالطوارئ ولا تجبره على الشرب."
+      ],
+      en: [
+        "Stop work and move the person to a cool shaded area.",
+        "Remove excess clothing and begin cooling.",
+        "If fully alert and able to swallow, give appropriate fluids.",
+        "If confused, unconscious or severely ill, call emergency services and do not force fluids."
+      ],
+      ur: [
+        "کام روک کر شخص کو ٹھنڈی سایہ دار جگہ منتقل کریں۔",
+        "اضافی کپڑے کم کریں اور جسم ٹھنڈا کریں۔",
+        "اگر ہوش میں ہو اور نگل سکتا ہو تو مناسب سیال دیں۔",
+        "اگر الجھن یا بے ہوشی ہو تو ایمرجنسی کو کال کریں اور زبردستی پانی نہ پلائیں۔"
+      ]
+    },
+    kit: {
+      ar: ["كمادات تبريد", "مياه وسوائل مناسبة"],
+      en: ["Cooling packs", "Water / appropriate fluids"],
+      ur: ["کولنگ پیک", "پانی / مناسب سیال"]
+    }
+  },
+
+  {
+    id: 11,
+    category: "medical",
+    icon: "👁️",
+    title: {
+      ar: "إصابة عين / رش كيميائي",
+      en: "Eye Injury / Chemical Splash",
+      ur: "آنکھ کی چوٹ / کیمیکل کا چھینٹا"
+    },
+    box: {
+      ar: "صندوق D - محطة غسل العيون",
+      en: "Box D - Eyewash Station",
+      ur: "باکس D - آئی واش اسٹیشن"
+    },
+    steps: {
+      ar: [
+        "ابدأ غسل العين فوراً بمياه نظيفة وفيرة.",
+        "استمر في الغسل لمدة لا تقل عن 15 دقيقة أو حسب تعليمات المادة وورقة SDS.",
+        "لا تفرك العين.",
+        "انزع العدسات اللاصقة أثناء الغسل إذا أمكن بسهولة، واطلب تقييماً طبياً."
+      ],
+      en: [
+        "Begin flushing the eye immediately with clean running water.",
+        "Continue flushing for at least 15 minutes or according to the chemical SDS.",
+        "Do not rub the eye.",
+        "Remove contact lenses during flushing if easy to do and seek medical assessment."
+      ],
+      ur: [
+        "فوراً آنکھ کو صاف بہتے پانی سے دھونا شروع کریں۔",
+        "کم از کم 15 منٹ یا SDS کی ہدایت کے مطابق دھوئیں۔",
+        "آنکھ نہ رگڑیں۔",
+        "اگر آسانی سے ممکن ہو تو لینز نکالیں اور طبی معائنہ کروائیں۔"
+      ]
+    },
+    kit: {
+      ar: ["محطة غسل عيون", "ضمادة عين معقمة"],
+      en: ["Eyewash station", "Sterile eye pad"],
+      ur: ["آئی واش اسٹیشن", "سٹرائل آئی پیڈ"]
+    }
+  },
+
+  {
+    id: 12,
+    category: "medical",
+    icon: "🩹",
+    title: {
+      ar: "حروق حرارية / كيميائية",
+      en: "Thermal / Chemical Burn",
+      ur: "حرارتی / کیمیائی جلنا"
+    },
+    box: {
+      ar: "صندوق A - المطبخ والورش",
+      en: "Box A - Kitchen & Workshop",
+      ur: "باکس A - کچن اور ورکشاپ"
+    },
+    steps: {
+      ar: [
+        "أوقف مصدر الحرق بأمان.",
+        "برّد الحرق بمياه جارية باردة أو فاترة لمدة 20 دقيقة إن أمكن.",
+        "لا تضع الثلج أو معجون الأسنان أو الزيوت على الحرق.",
+        "لا تفتح الفقاعات، واطلب تقييماً طبياً للحروق الكبيرة أو العميقة أو الكيميائية."
+      ],
+      en: [
+        "Stop the source of the burn safely.",
+        "Cool the burn with cool or lukewarm running water for 20 minutes if possible.",
+        "Do not apply ice, toothpaste or oils.",
+        "Do not break blisters; seek medical assessment for large, deep or chemical burns."
+      ],
+      ur: [
+        "جلنے کا ذریعہ محفوظ طریقے سے روکیں۔",
+        "جلے حصے کو ممکن ہو تو 20 منٹ ٹھنڈے یا نیم گرم بہتے پانی سے ٹھنڈا کریں۔",
+        "برف، ٹوتھ پیسٹ یا تیل نہ لگائیں۔",
+        "چھالے نہ پھوڑیں اور بڑے یا گہرے جلنے پر طبی مدد لیں۔"
+      ]
+    },
+    kit: {
+      ar: ["مياه جارية", "ضماد غير ملتصق"],
+      en: ["Running water", "Non-adherent dressing"],
+      ur: ["بہتا پانی", "نان ایڈہیرنٹ ڈریسنگ"]
+    }
+  },
+
+  {
+    id: 13,
+    category: "construction",
+    icon: "🚜",
+    title: {
+      ar: "انقلاب / حادث معدات ثقيلة",
+      en: "Heavy Equipment Rollover",
+      ur: "بھاری مشینری کا الٹنا"
+    },
+    box: {
+      ar: "صندوق E - حركة المعدات والورشة",
+      en: "Box E - Fleet & Workshop",
+      ur: "باکس E - فلیٹ اور ورکشاپ"
+    },
+    steps: {
+      ar: [
+        "أوقف الحركة في المنطقة واعزل موقع الحادث.",
+        "ابتعد عن الأحمال المعلقة والمعدات غير المستقرة.",
+        "لا تقترب من خطوط الكهرباء المتضررة.",
+        "اتصل بفريق الإنقاذ ولا تحاول تحريك المعدات دون خطة."
+      ],
+      en: [
+        "Stop movement and isolate the incident area.",
+        "Stay away from suspended loads and unstable equipment.",
+        "Keep clear of damaged power lines.",
+        "Call the rescue team and do not move equipment without a controlled plan."
+      ],
+      ur: [
+        "علاقہ بند کریں اور حادثے کی جگہ محفوظ کریں۔",
+        "لٹکے ہوئے بوجھ اور غیر مستحکم مشینری سے دور رہیں۔",
+        "خراب بجلی کی تاروں سے دور رہیں۔",
+        "ریسکیو ٹیم کو بلائیں اور بغیر منصوبے کے مشینری نہ ہلائیں۔"
+      ]
+    },
+    kit: {
+      ar: ["حقيبة إسعاف للمركبات", "وسائل عزل وتحذير"],
+      en: ["Vehicle first-aid kit", "Barricade / warning equipment"],
+      ur: ["گاڑی فرسٹ ایڈ کٹ", "وارننگ اور بیریکیڈ سامان"]
+    }
+  },
+
+  {
+    id: 14,
+    category: "construction",
+    icon: "⚙️",
+    title: {
+      ar: "انحشار طرف بآلة",
+      en: "Machine Entrapment",
+      ur: "مشین میں عضو کا پھنسنا"
+    },
+    box: {
+      ar: "صندوق B - ورش النجارة والحدادة",
+      en: "Box B - Carpentry & Steel Workshop",
+      ur: "باکس B - کارپینٹری اور اسٹیل ورکشاپ"
+    },
+    steps: {
+      ar: [
+        "اضغط زر الإيقاف الطارئ إذا كان ذلك آمناً.",
+        "اعزل الطاقة وفق إجراءات Lockout/Tagout.",
+        "لا تعكس أو تفك الآلة بشكل عشوائي.",
+        "اتصل بفريق الإنقاذ والصيانة المختص."
+      ],
+      en: [
+        "Activate the emergency stop if safe.",
+        "Isolate energy according to Lockout/Tagout procedures.",
+        "Do not reverse or dismantle machinery improvisedly.",
+        "Call the trained rescue and maintenance team."
+      ],
+      ur: [
+        "اگر محفوظ ہو تو ایمرجنسی اسٹاپ دبائیں۔",
+        "Lockout/Tagout طریقہ کار کے مطابق توانائی الگ کریں۔",
+        "مشین کو خود سے ریورس یا کھولنے کی کوشش نہ کریں۔",
+        "تربیت یافتہ ریسکیو اور مینٹیننس ٹیم کو بلائیں۔"
+      ]
+    },
+    kit: {
+      ar: ["ضماد ضاغط", "شاش معقم"],
+      en: ["Pressure dressing", "Sterile gauze"],
+      ur: ["پریشر ڈریسنگ", "سٹرائل گاز"]
+    }
+  },
+
+  {
+    id: 15,
+    category: "construction",
+    icon: "🚗",
+    title: {
+      ar: "دهس / تصادم مركبات",
+      en: "Vehicle Collision / Pedestrian Strike",
+      ur: "گاڑی کا حادثہ / ٹکر"
+    },
+    box: {
+      ar: "صندوق A - البوابة الرئيسية DG-GATE-4",
+      en: "Box A - Main Gate DG-GATE-4",
+      ur: "باکس A - مین گیٹ DG-GATE-4"
+    },
+    steps: {
+      ar: [
+        "أوقف حركة المرور بطريقة آمنة.",
+        "أمّن موقع الحادث وشغّل التحذيرات.",
+        "لا تحرك المصاب إلا عند وجود خطر مباشر مثل الحريق.",
+        "اتصل بالطوارئ وراقب المصاب حتى وصول المساعدة."
+      ],
+      en: [
+        "Stop traffic safely around the scene.",
+        "Secure the area and activate warnings.",
+        "Do not move the victim unless there is an immediate danger such as fire.",
+        "Call emergency services and monitor the victim."
+      ],
+      ur: [
+        "حادثے کے گرد ٹریفک محفوظ طریقے سے روکیں۔",
+        "جگہ محفوظ کریں اور وارننگ دیں۔",
+        "فوری خطرے کے بغیر زخمی کو نہ ہلائیں۔",
+        "ایمرجنسی کو کال کریں اور زخمی کی نگرانی کریں۔"
+      ]
+    },
+    kit: {
+      ar: ["حقيبة إسعافات", "مثلث تحذيري"],
+      en: ["First-aid kit", "Warning triangle"],
+      ur: ["فرسٹ ایڈ کٹ", "وارننگ ٹرائی اینگل"]
+    }
+  },
+
+  {
+    id: 16,
+    category: "environment",
+    icon: "🌪️",
+    title: {
+      ar: "طقس قاسي / عواصف",
+      en: "Severe Weather / Storm",
+      ur: "شدید موسم / طوفان"
+    },
+    box: {
+      ar: "صندوق C - مبنى الإدارة والملاجئ",
+      en: "Box C - Admin Building Shelter",
+      ur: "باکس C - ایڈمن شیلٹر"
+    },
+    steps: {
+      ar: [
+        "أوقف العمل في الارتفاعات والرافعات عند صدور التحذير.",
+        "توجه إلى المبنى أو الملجأ المحدد.",
+        "ثبّت المواد القابلة للتطاير وفق خطة الموقع.",
+        "لا تعاود العمل حتى صدور تصريح آمن."
+      ],
+      en: [
+        "Stop elevated and crane work when warnings are issued.",
+        "Move to the designated building or shelter.",
+        "Secure loose materials according to the site plan.",
+        "Do not resume work until authorized."
+      ],
+      ur: [
+        "وارننگ ملنے پر بلندی اور کرین کا کام روک دیں۔",
+        "مقررہ عمارت یا شیلٹر میں جائیں۔",
+        "ہلنے والے سامان کو محفوظ کریں۔",
+        "اجازت ملنے تک کام دوبارہ شروع نہ کریں۔"
+      ]
+    },
+    kit: {
+      ar: ["حقيبة طوارئ", "مصباح"],
+      en: ["Emergency kit", "Flashlight"],
+      ur: ["ایمرجنسی کٹ", "ٹارچ"]
+    }
+  }
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentLang = localStorage.getItem("portal_lang") || null;
+let selectedCase = null;
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function t(key) {
+  return translations[currentLang]?.[key] ?? key;
+}
+
+function selectLanguage(lang) {
+
+  if (!translations[lang]) return;
+
+  currentLang = lang;
+
+  localStorage.setItem("portal_lang", lang);
+
+  const root = document.getElementById("htmlRoot");
+
+  root.lang = lang;
+  root.dir = lang === "en" ? "ltr" : "rtl";
+
+  document.getElementById("languageSelect").value = lang;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+
+    if (translations[lang][key] !== undefined) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+
+    if (translations[lang][key] !== undefined) {
+      el.placeholder = translations[lang][key];
+    }
+  });
+
+  updateMeta();
+
+  renderCases();
+
+  const splash = document.getElementById("languageSplash");
+
+  splash.classList.add("hidden");
+
+  window.history.replaceState(
+    {},
+    "",
+    `${window.location.pathname}?lang=${lang}`
+  );
+}
+
+function updateMeta() {
+
+  const title = {
+    ar: "بوابة الاستجابة للطوارئ | مشروع الدرعية",
+    en: "Emergency Response Portal | Diriyah Project",
+    ur: "ایمرجنسی رسپانس پورٹل | درعیہ پروجیکٹ"
+  };
+
+  const descriptions = {
+    ar: "بوابة الاستجابة للطوارئ الميدانية لمشروع الدرعية.",
+    en: "Field emergency response portal for the Diriyah Project.",
+    ur: "درعیہ پروجیکٹ کے لیے فیلڈ ایمرجنسی رسپانس پورٹل۔"
+  };
+
+  document.title = title[currentLang];
+
+  document
+    .getElementById("metaDescription")
+    .setAttribute("content", descriptions[currentLang]);
+}
+
+
+/* =========================================================
+   CASES
+========================================================= */
+
+function renderCases() {
+
+  const grid = document.getElementById("casesGrid");
+  const search = document.getElementById("caseSearch").value
+    .trim()
+    .toLowerCase();
+
+  const filter = document.getElementById("caseFilter").value;
+
+  grid.innerHTML = "";
+
+  const filtered = cases.filter(item => {
+
+    const title = item.title[currentLang].toLowerCase();
+
+    const matchesSearch =
+      !search ||
+      title.includes(search) ||
+      item.box[currentLang].toLowerCase().includes(search);
+
+    const matchesFilter =
+      filter === "all" ||
+      item.category === filter;
+
+    return matchesSearch && matchesFilter;
+  });
+
+  filtered.forEach(item => {
+
+    const card = document.createElement("button");
+
+    card.type = "button";
+    card.className = "case-card reveal";
+
+    card.innerHTML = `
+      <span class="case-icon">${item.icon}</span>
+      <span class="case-number">CASE ${String(item.id).padStart(2, "0")}</span>
+      <h3>${escapeHTML(item.title[currentLang])}</h3>
+    `;
+
+    card.addEventListener("click", () => openCaseModal(item));
+
+    grid.appendChild(card);
+  });
+
+  document.getElementById("emptyState").style.display =
+    filtered.length ? "none" : "block";
+
+  requestAnimationFrame(() => {
+    document
+      .querySelectorAll(".cases-grid .reveal")
+      .forEach(el => el.classList.add("visible"));
+  });
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openCaseModal(item) {
+
+  selectedCase = item;
+
+  document.getElementById("modalTitle").textContent =
+    `${item.icon} ${item.title[currentLang]}`;
+
+  document.getElementById("modalBox").textContent =
+    item.box[currentLang];
+
+  const steps = document.getElementById("modalSteps");
+
+  steps.innerHTML = "";
+
+  item.steps[currentLang].forEach(step => {
+
+    const li = document.createElement("li");
+
+    li.textContent = step;
+
+    steps.appendChild(li);
+  });
+
+  const kit = document.getElementById("modalKit");
+
+  kit.innerHTML = "";
+
+  item.kit[currentLang].forEach(itemText => {
+
+    const div = document.createElement("div");
+
+    div.className = "kit-item";
+    div.textContent = `🩺 ${itemText}`;
+
+    kit.appendChild(div);
+  });
+
+  document.getElementById("caseModal").classList.add("open");
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeCaseModal() {
+
+  document.getElementById("caseModal").classList.remove("open");
+
+  document.body.style.overflow = "";
+
+  selectedCase = null;
+}
+
+
+/* =========================================================
+   GPS / EMERGENCY ALERT
+========================================================= */
+
+function showLocationStatus(message) {
+
+  const box = document.getElementById("locationStatus");
+
+  box.textContent = message;
+
+  box.style.display = "block";
+
+  clearTimeout(window.locationStatusTimer);
+
+  window.locationStatusTimer =
+    setTimeout(() => {
+      box.style.display = "none";
+    }, 5000);
+}
+
+
+async function shareLocationAndAlert() {
+
+  showLocationStatus(t("locationGetting"));
+
+  if (!navigator.geolocation) {
+
+    showLocationStatus(t("locationUnsupported"));
+
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+
+    async position => {
+
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      const accuracy = Math.round(position.coords.accuracy);
+
+      const mapsUrl =
+        `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+      showLocationStatus(t("locationSuccess"));
+
+      await sendTelegramAlert({
+        latitude,
+        longitude,
+        accuracy,
+        mapsUrl
+      });
+
+    },
+
+    error => {
+
+      if (error.code === 1) {
+        showLocationStatus(t("locationDenied"));
+      } else {
+        showLocationStatus(t("locationError"));
+      }
+
+      /*
+        Even if GPS fails, still allow the user
+        to call the emergency number.
+      */
+
+      if (confirm(
+        currentLang === "ar"
+          ? "تعذر الحصول على الموقع. هل تريد الاتصال بالطوارئ الآن؟"
+          : currentLang === "ur"
+            ? "لوکیشن حاصل نہیں ہوئی۔ کیا آپ ایمرجنسی کو کال کرنا چاہتے ہیں؟"
+            : "Location unavailable. Call emergency now?"
+      )) {
+        window.location.href = `tel:${CONFIG.emergencyPhone}`;
+      }
+
+    },
+
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 30000
+    }
+  );
+}
+
+
+/* =========================================================
+   TELEGRAM
+========================================================= */
+
+async function sendTelegramAlert(location) {
+
+  if (!CONFIG.telegramEndpoint) {
+
+    showLocationStatus(t("telegramNotConfigured"));
+
+    /*
+      Fallback:
+      Open Google Maps so the user can manually share
+      the location with the response team.
+    */
+
+    if (location?.mapsUrl) {
+
+      const shareText =
+        `${t("alertMessage")}: ${
+          selectedCase
+            ? selectedCase.title[currentLang]
+            : ""
+        }\n${t("gpsLabel")}: ${location.mapsUrl}`;
+
+      if (navigator.share) {
+
+        try {
+
+          await navigator.share({
+            title: t("alertMessage"),
+            text: shareText,
+            url: location.mapsUrl
+          });
+
+        } catch (_) {}
+
+      } else {
+
+        window.open(location.mapsUrl, "_blank", "noopener");
+
+      }
+    }
+
+    return;
+  }
+
+  try {
+
+    const payload = {
+      language: currentLang,
+
+      emergency: selectedCase
+        ? {
+            id: selectedCase.id,
+            title: selectedCase.title[currentLang]
+          }
+        : null,
+
+      location: {
+        latitude: location.latitude,
+        longitude: location.longitude,
+        accuracy: location.accuracy,
+        mapsUrl: location.mapsUrl
+      },
+
+      timestamp: new Date().toISOString()
+    };
+
+    const response = await fetch(
+      CONFIG.telegramEndpoint,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Telegram endpoint error");
+    }
+
+    showLocationStatus(t("telegramSuccess"));
+
+  } catch (error) {
+
+    console.error(error);
+
+    showLocationStatus(t("telegramError"));
+
+  }
+}
+
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+document
+  .getElementById("contactForm")
+  .addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const success =
+      document.getElementById("contactSuccess");
+
+    success.textContent = t("formSuccess");
+
+    success.style.display = "block";
+
+    event.target.reset();
+
+    setTimeout(() => {
+      success.style.display = "none";
+    }, 6000);
+  });
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMobileMenu() {
+
+  document
+    .getElementById("mobileMenu")
+    .classList.toggle("open");
+}
+
+function closeMobileMenu() {
+
+  document
+    .getElementById("mobileMenu")
+    .classList.remove("open");
+}
+
+
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
+
+document
+  .getElementById("caseSearch")
+  .addEventListener("input", renderCases);
+
+document
+  .getElementById("caseFilter")
+  .addEventListener("change", renderCases);
+
+
+/* =========================================================
+   KEYBOARD / MODAL
+========================================================= */
+
+document.addEventListener("keydown", event => {
+
+  if (event.key === "Escape") {
+    closeCaseModal();
+    closeMobileMenu();
+  }
+});
+
+document
+  .getElementById("caseModal")
+  .addEventListener("click", event => {
+
+    if (event.target.id === "caseModal") {
+      closeCaseModal();
+    }
+  });
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add("visible");
+
+          observer.unobserve(entry.target);
+        }
+
+      });
+
+    },
+    {
+      threshold: .1
+    }
+  );
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(el => observer.observe(el));
+
+
+/* =========================================================
+   SECURITY HELPERS
+========================================================= */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+/* =========================================================
+   SERVICE WORKER / PWA
+========================================================= */
+
+const serviceWorkerCode = `
+const CACHE_NAME = "emergency-portal-v1";
+
+const APP_SHELL = [
+  "./",
+  "./index.html"
+];
+
+self.addEventListener("install", event => {
+
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
+  );
+
+});
+
+self.addEventListener("activate", event => {
+
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    )
+  );
+
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", event => {
+
+  if (event.request.method !== "GET") return;
+
+  event.respondWith(
+
+    caches.match(event.request)
+      .then(cached => {
+
+        if (cached) return cached;
+
+        return fetch(event.request)
+          .then(response => {
+
+            if (
+              !response ||
+              response.status !== 200 ||
+              response.type === "opaque"
+            ) {
+              return response;
+            }
+
+            const clone = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(cache =>
+                cache.put(event.request, clone)
+              );
+
+            return response;
+
+          })
+          .catch(() =>
+            caches.match("./index.html")
+          );
+      })
+  );
+
+});
+`;
+
+
+function registerServiceWorker() {
+
+  /*
+    Service workers generally require HTTPS or localhost.
+    They also cannot reliably be registered from arbitrary
+    data: URLs, which was one of the problems in the old code.
+  */
+
+  if (
+    "serviceWorker" in navigator &&
+    (
+      location.protocol === "https:" ||
+      location.hostname === "localhost"
+    )
+  ) {
+
+    const blob =
+      new Blob(
+        [serviceWorkerCode],
+        { type: "text/javascript" }
+      );
+
+    const workerUrl =
+      URL.createObjectURL(blob);
+
+    navigator.serviceWorker
+      .register(workerUrl)
+      .catch(error => {
+        console.warn(
+          "Service Worker registration failed:",
+          error
+        );
+      });
+  }
+}
+
+
+/* =========================================================
+   PWA MANIFEST
+========================================================= */
+
+function installManifest() {
+
+  const manifest = {
+
+    name: "Emergency Response Portal",
+
+    short_name: "Emergency",
+
+    start_url: "./",
+
+    display: "standalone",
+
+    background_color: "#f7f8fa",
+
+    theme_color: "#b4232c",
+
+    lang: currentLang || "ar",
+
+    dir: currentLang === "en" ? "ltr" : "rtl",
+
+    icons: []
+  };
+
+  const blob =
+    new Blob(
+      [JSON.stringify(manifest)],
+      { type: "application/manifest+json" }
+    );
+
+  const url = URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("link");
+
+  link.rel = "manifest";
+  link.href = url;
+
+  document.head.appendChild(link);
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+function initialize() {
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+  /*
+    Check URL language first.
+  */
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const urlLang = params.get("lang");
+
+  if (translations[urlLang]) {
+    currentLang = urlLang;
+  }
+
+  /*
+    First visit:
+    Show splash.
+
+    Returning visitor:
+    Open directly in saved language.
+  */
+
+  if (currentLang && translations[currentLang]) {
+
+    selectLanguage(currentLang);
+
+  } else {
+
+    /*
+      Default internal content remains Arabic,
+      but splash blocks it until selection.
+    */
+
+    currentLang = "ar";
+
+    selectLanguage("ar");
+
+    document
+      .getElementById("languageSplash")
+      .classList.remove("hidden");
+  }
+
+  installManifest();
+
+  registerServiceWorker();
+}
+
+
+initialize();
+</script>
+
+</body>
+</html>
